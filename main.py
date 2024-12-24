@@ -27,3 +27,29 @@ def maclaurin_cosh(x: float, iterations: int = 10) -> float:
         term = (x ** (2 * n)) / math.factorial(2 * n)
         result += term
     return result
+
+
+def maclaurin_exp(x: float, iterations: int = 10) -> float:
+    """
+    Вычисление экспоненты через ряд Маклорена.
+
+    Аргументы:
+        x (float): значение, для которого вычисляется экспонента.
+        iterations (int): количество итераций.
+
+    Возвращаемое значение:
+        float: значение экспоненты.
+
+    Исключения:
+        ValueError: если iterations <= 0.
+
+    Пример:
+        >>> maclaurin_exp(1)
+        2.71828
+    """
+    if iterations <= 0:
+        raise ValueError("Количество итераций должно быть положительным числом.")
+    result = 0
+    for n in range(iterations):
+        result += (x ** n) / math.factorial(n)
+    return result
