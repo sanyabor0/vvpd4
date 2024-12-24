@@ -29,27 +29,31 @@ def maclaurin_cosh(x: float, iterations: int = 10) -> float:
     return result
 
 
-def maclaurin_exp(x: float, iterations: int = 10) -> float:
+def maclaurin_ln1p(x: float, iterations: int = 10) -> float:
     """
-    Вычисление экспоненты через ряд Маклорена.
+    Вычисляет натуральный логарифм (ln(1+x)) через ряд Маклорена (ln(1+x)).
 
     Аргументы:
-        x (float): значение, для которого вычисляется экспонента.
-        iterations (int): количество итераций.
+        x (float): значение (должно быть в диапазоне (-1, 1]).
+        iterations (int): количество итераций для точности вычислений.
 
     Возвращаемое значение:
-        float: значение экспоненты.
+        float: значение ln(1+x).
 
     Исключения:
-        ValueError: если iterations <= 0.
+        ValueError: если x не в допустимом диапазоне или iterations <= 0.
 
     Пример:
-        >>> maclaurin_exp(1)
-        2.71828
+        >>> maclaurin_ln1p(0.5)
+        0.4054651081081644
     """
+    if not (-1 < x <= 1):
+        raise ValueError("x должен быть в диапазоне (-1, 1].")
     if iterations <= 0:
-        raise ValueError("Количество итераций должно быть положительным числом.")
+        raise ValueError("Количество итераций должно быть больше 0.")
+
     result = 0
-    for n in range(iterations):
-        result += (x ** n) / math.factorial(n)
+    for n in range(1, iterations + 1):
+        term = ((-1) ** (n + 1)) * (x ** n) / n
+        result += term
     return result
