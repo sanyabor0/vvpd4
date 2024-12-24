@@ -57,3 +57,40 @@ def maclaurin_ln1p(x: float, iterations: int = 10) -> float:
         term = ((-1) ** (n + 1)) * (x ** n) / n
         result += term
     return result
+
+
+def main_menu():
+    """
+    Главное меню программы для вычисления функций.
+    """
+    while True:
+        print("\n--- Главное меню ---")
+        print("1. Вычислить cosh(x)")
+        print("2. Вычислить ln(1+x)")
+        print("3. Выход")
+
+        choice = input("Введите номер операции: ")
+        if choice == "1":
+            try:
+                x = float(input("Введите x: "))
+                result = maclaurin_cosh(x)
+                print(f"Результат: cosh({x}) = {result}")
+            except ValueError as e:
+                print(f"Ошибка: {e}")
+        elif choice == "2":
+            try:
+                x = float(input("Введите x (в диапазоне (-1, 1]): "))
+                result = maclaurin_ln1p(x)
+                print(f"Результат: ln(1+{x}) = {result}")
+            except ValueError as e:
+                print(f"Ошибка: {e}")
+        elif choice == "3":
+            print("Выход из программы.")
+            break
+        else:
+            print("Некорректный ввод. Попробуйте снова.")
+
+
+# Запуск программы
+if __name__ == "__main__":
+    main_menu()
